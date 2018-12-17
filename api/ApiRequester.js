@@ -1,0 +1,81 @@
+import axios from 'axios';
+
+const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
+
+class ApiRequester {
+
+    constructor(path_extension) {
+        this.PATH = BASE_PATH + path_extension; 
+    }
+
+    Get() {
+        return axios({
+			method: 'GET',
+			url: this.PATH,
+			//withCredentials: true,
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Pragma': 'no-cache',
+				'Expires': 0,
+				'Access-Control-Allow-Origin': '*'
+			}
+		});
+    }
+
+    GetDetails(id) {
+        return axios({
+			method: 'GET',
+			url: this.PATH + id,
+			//withCredentials: true,
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Pragma': 'no-cache',
+				'Expires': 0,
+				'Access-Control-Allow-Origin': '*'
+			}
+		});
+    }
+
+    Post(id, body) {
+        return axios({
+			method: 'POST',
+			url: this.PATH + id,
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Pragma': 'no-cache',
+				'Expires': 0,
+				'Access-Control-Allow-Origin': '*'
+            },
+            data: body
+		});
+    }
+
+    Put(body){
+        return axios({
+			method: 'PUT',
+			url: this.PATH,
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Pragma': 'no-cache',
+				'Expires': 0,
+				'Access-Control-Allow-Origin': '*'
+            },
+            data: body
+		});
+    }
+
+    delete(id) {
+        return axios({
+			method: 'DELETE',
+			url: this.PATH + id,
+			headers: {
+				'Cache-Control': 'no-cache',
+				'Pragma': 'no-cache',
+				'Expires': 0,
+				'Access-Control-Allow-Origin': '*'
+			}
+		});
+    }
+}
+
+export default ApiRequester;
