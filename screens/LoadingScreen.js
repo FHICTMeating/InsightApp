@@ -44,8 +44,14 @@ export default class LoadingScreen extends React.Component {
     }
 
     if (finalStatus !== 'granted') return;
-    let token = await Notifications.getExpoPushTokenAsync();
-    return Promise.resolve(token)
+
+    try{
+      let token = await Notifications.getExpoPushTokenAsync();
+      return Promise.resolve(token)
+    } catch(error) {
+      return Promise.reject(error);
+    }
+  
   }
 
   async componentDidMount() {
@@ -71,22 +77,26 @@ export default class LoadingScreen extends React.Component {
   }
 
   async registerUser() {
-    const token = await this.registerForPushNotifications();
-    console.log('--TOKEN', token);
-    this.registerEndpoint.Post({ pushToken: token }).then(async (result) => {
-        let parsed = result.data;
-
-        try {
-          await AsyncStorage.setItem('color', parsed.data.color);
-          await AsyncStorage.setItem('userId', parsed.data._id);
-          // console.log(parsed.data.color);
-          this.props.navigation.navigate('App');
-
-        } catch (error) {
-          // Error saving data
-          console.log("Error", error);
-        }
-    })
+    try{
+      const token = await this.registerForPushNotifications();
+      console.log('--TOKEN', token);
+      this.registerEndpoint.Post({ pushToken: token }).then(async (result) => {
+          let parsed = result.data;
+  
+          try {
+            await AsyncStorage.setItem('color', parsed.data.color);
+            await AsyncStorage.setItem('userId', parsed.data._id);
+            // console.log(parsed.data.color);
+            this.props.navigation.navigate('App');
+  
+          } catch (error) {
+            // Error saving data
+            console.log("Error", error);
+          }
+      })
+    } catch(error) {
+      console.log("Couldn't get token: ", error);
+    }
   }
 }
 
