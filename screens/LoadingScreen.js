@@ -10,8 +10,6 @@ import {
   View,
 } from 'react-native';
 
-// import WelcomeScreen from '../screens/WelcomeScreen';
-
 export default class LoadingScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -54,24 +52,38 @@ export default class LoadingScreen extends React.Component {
     const userId = await AsyncStorage.getItem('userId');
 
     if (userId) {
-      this.props.navigation.navigate('App');
-      return;
+        //Check the session
+        this.registerEndpoint.GetDetails(userId).then((result) => {
+            console.log(result);
+            if(result.status == 204) {
+                this.props.navigation.navigate('App');
+                return;
+            }
+        })
+        .catch(error => {
+            console.log("Le error", error);
+
+            this.registerUser();
+        });
+    } else {
+        this.registerUser();
     }
+  }
 
-    let token = await this.registerForPushNotifications();
-    this.registerEndpoint.Post({pushToken: token}).then(async (result) => {
-      let parsed = result.data;
+  async registerUser() {
+    this.registerEndpoint.Post().then(async (result) => {
+        let parsed = result.data;
 
-      try {
-        await AsyncStorage.setItem('color', parsed.data.color);
-        await AsyncStorage.setItem('userId', parsed.data._id);
-        // console.log(parsed.data.color);
-        this.props.navigation.navigate('App');
+        try {
+          await AsyncStorage.setItem('color', parsed.data.color);
+          await AsyncStorage.setItem('userId', parsed.data._id);
+          // console.log(parsed.data.color);
+          this.props.navigation.navigate('App');
 
-      } catch (error) {
-        // Error saving data
-        console.log("Error", error);
-      }
+        } catch (error) {
+          // Error saving data
+          console.log("Error", error);
+        }
     })
   }
 }
