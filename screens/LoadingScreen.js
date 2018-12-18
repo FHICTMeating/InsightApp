@@ -1,4 +1,5 @@
 import React from 'react';
+import { Permissions, Notifications } from 'expo';
 import RegisterEndpoint from '../api/RegisterEndpoint';
 
 import {
@@ -35,9 +36,24 @@ export default class LoadingScreen extends React.Component {
     );
   }
 
+  async registerForPushNotifications() {
+    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') return;
+
+    let token = await Notifications.getExpoPushTokenAsync();
+    console.log('--TOKEN', token);
+  }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-
+    await this.registerForPushNotifications();
     if (userId) {
       this.props.navigation.navigate('App');
       return;
