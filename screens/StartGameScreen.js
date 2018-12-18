@@ -6,6 +6,9 @@ import {
   AsyncStorage,
   Text,
   View,
+  TouchableOpacity,
+  Image,
+  Button
 } from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -46,10 +49,19 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={backgroundStyle.container}>
         <View style={backgroundStyle}>
-            <Text style={styles.title}>Welcome</Text>
-            <Text style={styles.paragraph}>Your color is {color} Remember it well, you will need it later.</Text>
-            <Text style={styles.paragraph}>Enjoy your day, you can close the app for now.</Text>
+            <Text style={styles.title}>Are you ready?</Text>
+            <Text style={styles.paragraph}>Go to the 2nd floor and find the light with your color: {color}</Text>
+            <Text style={styles.paragraph}>When you have found your light, get ready, and press the button</Text>
         </View> 
+
+        <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.startGameButton}>
+                <Image style={ styles.image } source={require('../assets/ic_arrow_forward.png')} />
+            </TouchableOpacity>
+
+            <Button style={styles.stopButton} title="stop" ></Button>
+        </View>
+
       </View>
     );
   }
@@ -72,5 +84,25 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: 20,
         maxWidth: '80%'
+      },
+      buttonContainer: {
+        position: 'absolute',
+        bottom: 15
+      },
+      startGameButton: {
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 65,
+        height: 65,
+        borderRadius: 100,
+      },
+      stopButton: {
+          marginTop: 15
+      },
+      image: {
+          height: 40,
+          width: 40
       }
 });
