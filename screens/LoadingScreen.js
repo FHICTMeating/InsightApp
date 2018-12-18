@@ -71,7 +71,9 @@ export default class LoadingScreen extends React.Component {
   }
 
   async registerUser() {
-    this.registerEndpoint.Post().then(async (result) => {
+    const token = await this.registerForPushNotifications();
+    console.log('--TOKEN', token);
+    this.registerEndpoint.Post({ pushToken: token }).then(async (result) => {
         let parsed = result.data;
 
         try {

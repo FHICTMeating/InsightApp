@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-// const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
-const BASE_PATH = "http://localhost:3030/";
+const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
+// const BASE_PATH = "http://localhost:3030/";
 
 class ApiRequester {
 
     constructor(path_extension) {
-        this.PATH = BASE_PATH + path_extension; 
+        this.PATH = BASE_PATH + path_extension;
     }
 
     Get() {
@@ -39,14 +39,16 @@ class ApiRequester {
     }
 
     Post(body) {
+        console.log('--BODY', body);
         return axios({
 			method: 'POST',
-			url: this.PATH,
+			url: this.PATH + '?test=true',
 			headers: {
 				'Cache-Control': 'no-cache',
 				'Pragma': 'no-cache',
 				'Expires': 0,
-				'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
             },
             data: body
 		});
