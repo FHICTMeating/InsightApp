@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
+// const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
+const BASE_PATH = "http://localhost:3030/";
 
 class ApiRequester {
 
@@ -23,6 +24,7 @@ class ApiRequester {
     }
 
     GetDetails(id) {
+		console.log(this.PATH + id);
         return axios({
 			method: 'GET',
 			url: this.PATH + id,
@@ -36,10 +38,10 @@ class ApiRequester {
 		});
     }
 
-    Post(id, body) {
+    Post(body) {
         return axios({
 			method: 'POST',
-			url: this.PATH + id,
+			url: this.PATH,
 			headers: {
 				'Cache-Control': 'no-cache',
 				'Pragma': 'no-cache',
@@ -50,10 +52,10 @@ class ApiRequester {
 		});
     }
 
-    Put(body){
+    Put(id, body){
         return axios({
 			method: 'PUT',
-			url: this.PATH,
+			url: this.PATH + id,
 			headers: {
 				'Cache-Control': 'no-cache',
 				'Pragma': 'no-cache',
