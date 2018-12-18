@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
       fontSize: 38
   },
   paragraph: {
-    color: '#ffffff'
+    color: '#ffffff',
+    fontSize: 20,
+    marginTop: 20,
+    maxWidth: '80%'
   }
 });
