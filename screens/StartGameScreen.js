@@ -2,13 +2,11 @@ import React from 'react';
 import colors from '../config/colors';
 
 import {
-  ActivityIndicator,
   StyleSheet,
   AsyncStorage,
   Text,
   View,
 } from 'react-native';
-import { parse } from 'qs';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -58,21 +56,21 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  centerTextContainer: {
-    color: '#d6ecfa',
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'left'
-  },
-  title: {
-      color: '#ffffff',
-      fontWeight: 'bold',
-      fontSize: 38
-  },
-  paragraph: {
-    color: '#ffffff',
-    fontSize: 20,
-    marginTop: 20,
-    maxWidth: '80%'
-  }
+    centerTextContainer: {
+        color: '#d6ecfa',
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'left'
+      },
+      title: {
+          color: '#ffffff',
+          fontWeight: 'bold',
+          fontSize: 38
+      },
+      paragraph: {
+        color: '#ffffff',
+        fontSize: 20,
+        marginTop: 20,
+        maxWidth: '80%'
+      }
 });
