@@ -46,20 +46,20 @@ export default class LoadingScreen extends React.Component {
     }
 
     if (finalStatus !== 'granted') return;
-
     let token = await Notifications.getExpoPushTokenAsync();
-    console.log('--TOKEN', token);
+    return Promise.resolve(token)
   }
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    await this.registerForPushNotifications();
+
     if (userId) {
       this.props.navigation.navigate('App');
       return;
     }
 
-    this.registerEndpoint.Get().then(async (result) => {
+    let token = await this.registerForPushNotifications();
+    this.registerEndpoint.Post({pushToken: token}).then(async (result) => {
       let parsed = result.data;
 
       try {
