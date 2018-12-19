@@ -1,21 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import LoadingScreen from './screens/LoadingScreen';
+import WelcomeScreen from './screens/WelcomScreen';
+import StartGameScreen from './screens/StartGameScreen';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
-}
+const AppStack = createStackNavigator({ home: WelcomeScreen });
+const GameStack = createStackNavigator({ home: StartGameScreen });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+export default createAppContainer(createSwitchNavigator(
+  {
+    Auth: LoadingScreen,
+    App: AppStack,
+    Game: GameStack,
   },
-});
+  {
+    initialRouteName: 'Auth',
+  }
+));
+
