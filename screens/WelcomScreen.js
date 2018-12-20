@@ -1,7 +1,6 @@
 import React from "react";
 import colors from "../config/colors";
 import {
-  ActivityIndicator,
   StyleSheet,
   AsyncStorage,
   Text,

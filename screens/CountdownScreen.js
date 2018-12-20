@@ -6,10 +6,7 @@ import {
   StyleSheet,
   AsyncStorage,
   Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Button
+  View
 } from "react-native";
 
 export default class HomeScreen extends React.Component {
