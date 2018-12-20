@@ -54,8 +54,6 @@ export default class HomeScreen extends React.Component {
         let dateNow = new Date();
 
         let totalTime = startDate - dateNow;
-        console.log("DATE NOW", dateNow);
-        console.log("START DATE", startDate);
 
         let currentTime = 0;
         let interval =  100;
