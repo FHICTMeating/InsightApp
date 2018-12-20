@@ -45,7 +45,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { color } = this.state;
-    console.log(this.state);
 
     const backgroundStyle = StyleSheet.create({
       container: {

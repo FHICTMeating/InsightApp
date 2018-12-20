@@ -4,8 +4,10 @@ import { createSwitchNavigator, createStackNavigator, createAppContainer } from 
 import LoadingScreen from './screens/LoadingScreen';
 import WelcomeScreen from './screens/WelcomScreen';
 import StartGameScreen from './screens/StartGameScreen';
+import CountdownScreen from './screens/CountdownScreen';
 
-const AppStack = createStackNavigator({ home: WelcomeScreen });
+const AppStack = createStackNavigator({ home: CountdownScreen });
+// const AppStack = createStackNavigator({ home: WelcomeScreen });
 const GameStack = createStackNavigator({ home: StartGameScreen });
 
 export default createAppContainer(createSwitchNavigator(
