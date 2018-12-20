@@ -6,7 +6,7 @@ import WelcomeScreen from './screens/WelcomScreen';
 import StartGameScreen from './screens/StartGameScreen';
 
 const AppStack = createStackNavigator({ home: WelcomeScreen });
-const GameStack = createStackNavigator({ home: StartGameScreen });
+const GameStack = createStackNavigator({ home: StartGameScreen, loading: WelcomeScreen });
 
 export default createAppContainer(createSwitchNavigator(
   {

@@ -39,7 +39,6 @@ class ApiRequester {
     }
 
     Post(body) {
-        console.log('--BODY', body);
         return axios({
 			method: 'POST',
 			url: this.PATH + '?test=true',
