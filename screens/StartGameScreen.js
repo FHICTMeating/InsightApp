@@ -45,8 +45,8 @@ export default class HomeScreen extends React.Component {
   async continue() {
     let userID = await AsyncStorage.getItem('userId');
     this.joinGameEndpoint.Put(userID, {}).then((result) => {
-      let { timestamp } = result.data;
-      this.props.navigation.push('loading', { timestamp: timestamp });
+      
+      this.props.navigation.push('loading', { timestamp: result.data.data });
     }).catch((error) => {
       console.log('--ERROR', error);
     });

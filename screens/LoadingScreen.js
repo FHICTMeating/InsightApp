@@ -60,7 +60,6 @@ export default class LoadingScreen extends React.Component {
     if (userId) {
         //Check the session
         this.registerEndpoint.GetDetails(userId).then((result) => {
-            console.log(result);
             if(result.status == 204) {
                 this.props.navigation.navigate('App');
                 return;

@@ -8,7 +8,6 @@ import {
   Button
 } from "react-native";
 import { Notifications } from "expo";
-import { parse } from "qs";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {

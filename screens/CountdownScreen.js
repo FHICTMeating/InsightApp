@@ -31,13 +31,21 @@ export default class HomeScreen extends React.Component {
       });
     });
 
+    //Start the timer.
     this.countdownTime();
   }
 
 
   countdownTime() {
-      return new Promise(() => {
-        let totalTime = 10000;
+      return new Promise(async () => {
+        let startDate = new Date(await this.props.navigation.getParam("timestamp"));
+        let dateNow = new Date();
+        console.log("Start date", startDate);
+        console.log("Date Now", dateNow);
+
+
+        let totalTime = startDate - dateNow;
+        console.log(totalTime);
         let currentTime = 0;
         let interval =  100;
         
@@ -62,8 +70,11 @@ export default class HomeScreen extends React.Component {
                     percentage = 0;
                     clearInterval(intervalTimer);
                 }
+
+                let minuteString = minutes < 10 ? "0" + minutes : minutes;
+                let secondsString = seconds < 10 ? "0" + seconds : seconds;
                 this.setState({
-                    countdownTime: minutes + ":" + seconds,
+                    countdownTime: minuteString + ":" + secondsString,
                     countdownProgress: percentage
                 });
         }, interval)
