@@ -64,8 +64,6 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.paragraph}>
             Enjoy your day, you can close the app for now.
           </Text>
-
-          <Button title="Clear" onPress={() => AsyncStorage.clear()}></Button>
         </View>
       </View>
     );

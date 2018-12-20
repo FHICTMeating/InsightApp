@@ -1,6 +1,7 @@
 import React from "react";
 import colors from "../config/colors";
 import * as Progress from 'react-native-progress';
+import { Notifications } from "expo";
 
 import {
   StyleSheet,
@@ -22,6 +23,7 @@ export default class HomeScreen extends React.Component {
       countdownProgress: 0
     };
 
+    this.handleNotification = this.handleNotification.bind(this);
   }
 
   componentDidMount() {
@@ -31,21 +33,28 @@ export default class HomeScreen extends React.Component {
       });
     });
 
+    this.notificationSubscription = Notifications.addListener(this.handleNotification);
+
     //Start the timer.
     this.countdownTime();
   }
 
+  handleNotification(notification) {
+    const { data } = notification;
+    if (data.Type === 'sequence game') {
+        console.log("Received a squence game message");
+    //   this.props.navigation.navigate('Game');
+    }
+    console.log('--NOTIFICATION', notification);
+  }
 
   countdownTime() {
       return new Promise(async () => {
         let startDate = new Date(await this.props.navigation.getParam("timestamp"));
         let dateNow = new Date();
-        console.log("Start date", startDate);
-        console.log("Date Now", dateNow);
-
 
         let totalTime = startDate - dateNow;
-        console.log(totalTime);
+        
         let currentTime = 0;
         let interval =  100;
         

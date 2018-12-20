@@ -67,7 +67,6 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={backgroundStyle.container}>
-        <Ionicons name="md-close" size={32}></Ionicons>
         <View style={backgroundStyle}>
           <Text style={styles.title}>Are you ready?</Text>
           <Text style={styles.paragraph}>
@@ -87,7 +86,6 @@ export default class HomeScreen extends React.Component {
           </TouchableOpacity>
 
           <Button
-            style={styles.stopButton}
             title="stop"
             onPress={this.navigateBack}
           />
@@ -126,10 +124,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 65,
     height: 65,
-    borderRadius: 100
-  },
-  stopButton: {
-    marginTop: 15
+    borderRadius: 100,
+    marginBottom: 30
   },
   image: {
     height: 40,
