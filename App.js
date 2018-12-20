@@ -8,7 +8,7 @@ import CountdownScreen from './screens/CountdownScreen';
 
 // const AppStack = createStackNavigator({ home: CountdownScreen });
 const AppStack = createStackNavigator({ home: WelcomeScreen });
-const GameStack = createStackNavigator({ home: StartGameScreen });
+const GameStack = createStackNavigator({ home: StartGameScreen, loading: WelcomeScreen });
 
 export default createAppContainer(createSwitchNavigator(
   {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Ionicons } from '@expo/vector-icons';
 import colors from "../config/colors";
 
 import {
@@ -10,6 +11,7 @@ import {
   Image,
   Button
 } from "react-native";
+import { JoinGameEndpoint } from "../api/JoinGameEndpoint";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,6 +25,9 @@ export default class HomeScreen extends React.Component {
     };
 
     this.navigateBack = this.navigateBack.bind(this);
+    this.continue = this.continue.bind(this);
+
+    this.joinGameEndpoint = new JoinGameEndpoint();
   }
 
   componentDidMount() {
@@ -35,6 +40,16 @@ export default class HomeScreen extends React.Component {
 
   navigateBack() {
     this.props.navigation.navigate("App");
+  }
+
+  async continue() {
+    let userID = await AsyncStorage.getItem('userId');
+    this.joinGameEndpoint.Put(userID, {}).then((result) => {
+      let { timestamp } = result.data;
+      this.props.navigation.push('loading', { timestamp: timestamp });
+    }).catch((error) => {
+      console.log('--ERROR', error);
+    });
   }
 
   render() {
@@ -52,6 +67,7 @@ export default class HomeScreen extends React.Component {
 
     return (
       <View style={backgroundStyle.container}>
+        <Ionicons name="md-close" size={32}></Ionicons>
         <View style={backgroundStyle}>
           <Text style={styles.title}>Are you ready?</Text>
           <Text style={styles.paragraph}>
@@ -63,7 +79,7 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.startGameButton} onPress={this.navigateBack}>
+          <TouchableOpacity style={styles.startGameButton} onPress={this.continue}>
             <Image
               style={styles.image}
               source={require("../assets/ic_arrow_forward.png")}
