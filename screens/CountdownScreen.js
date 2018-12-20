@@ -54,14 +54,17 @@ export default class HomeScreen extends React.Component {
         let dateNow = new Date();
 
         let totalTime = startDate - dateNow;
-        
+        console.log("DATE NOW", dateNow);
+        console.log("START DATE", startDate);
+
         let currentTime = 0;
         let interval =  100;
         
         let intervalTimer = setInterval(() => {
+                let remainingTime = startDate - new Date();
                 currentTime += interval;
 
-                let timeToGo = totalTime - currentTime;
+                let timeToGo = remainingTime - currentTime;
                 let ms = timeToGo % 60000;
 
                 let minutes = Math.round((timeToGo - ms)/ 60000);
