@@ -29,25 +29,52 @@ export default class StatementScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    AsyncStorage.getItem('color').then(color => {
-      this.setState({
-        color: color
-      });
-    });
+  getAsyncStorageData = async () => {
+    let playerId = '';
+    let gameId = '';
 
+    try {
+      playerId = await AsyncStorage.getItem('playerId') || 'none';
+      gameId = await AsyncStorage.getItem('gameId') || 'none';
+    } catch (error) {
+      console.log(error.message);
+    }
+    return { playerId: playerId, gameId: gameId };
+  }
 
-    //Get statement
-    // var newText = null //API call to receive Statement text
-    // this.setState({ statementText : newText})
+  async componentDidMount() {
+
+    try {
+      const { playerId, gameId } = await this.getAsyncStorageData()
+      const role = await ApiRequester.getRole(gameId, playerId);
+      const content = await ApiRequester.getContent(gameId, playerId);
+      this.setState({ role: role, content: content });
+    } catch (err) {
+      console.log("Error fetching data--- ", err);
+    }
+
+  }
+
+  textInputField = () => {
+    const isLeader = true;
+
+    if (isLeader) {
+      return (
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={(text) => this.setState({ text })}
+          value={this.state.text}
+        />
+      )
+    }
   }
 
   verifyStatement = () => {
     // console.log(this.state.newStatementText)
-    
+
     // change 'verifyStatementText' to true if newStatementText is equal to the (official) statementText
-    
-    this.setState({ statementText: this.state.newStatementText});
+
+    this.setState({ statementText: this.state.newStatementText });
     const verifyStatementText = false;
     // if(this.state.verifyStatementText == false )
     //   return <Text>data</Text>;
@@ -56,7 +83,8 @@ export default class StatementScreen extends React.Component {
 
 
   render() {
-    const {color} = this.state;
+    // const { role, content, color } = this.state;
+    const { color } = this.state;
     // console.log(this.state);
 
     const backgroundStyle = StyleSheet.create({
@@ -72,8 +100,7 @@ export default class StatementScreen extends React.Component {
       }
     });
 
-const retryStatement = <Text> The statement is incorrect, please retry. </Text>;
-
+    const retryStatement = <Text> The statement is incorrect, please retry. </Text>;
 
     return (
       <View style={backgroundStyle.container}>
@@ -87,14 +114,11 @@ const retryStatement = <Text> The statement is incorrect, please retry. </Text>;
           <Text style={[styles.defaultText, styles.statementText]}>{this.state.statementText}</Text>
 
 
-            {retryStatement} 
+          {retryStatement}
 
-          
-
-          <TextInput placeholder='Type the complete statement here' 
-          style={styles.inputText} 
-          onChangeText={(text) => this.setState({ newStatementText: text })}
-          />
+        {
+          this.textInputField()
+        }
 
           <Button title='Check' onPress={this.verifyStatement} />
         </View>
