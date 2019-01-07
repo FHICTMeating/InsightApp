@@ -34,12 +34,12 @@ export default class StatementScreen extends React.Component {
     let gameId = '';
 
     try {
-      playerId = await AsyncStorage.getItem('playerId') || 'none';
-      gameId = await AsyncStorage.getItem('gameId') || 'none';
+      playerId = await AsyncStorage.getItem('userId') || 'none';
+      color = await AsyncStorage.getItem('color') || 'none';
     } catch (error) {
       console.log(error.message);
     }
-    return { playerId: playerId, gameId: gameId };
+    return { playerId: playerId, color: color };
   }
 
   async componentDidMount() {

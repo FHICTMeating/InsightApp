@@ -31,13 +31,15 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    const {color} = this.state;
-    console.log(this.state);
+    // const {color} = this.state;
+    // console.log(this.state);
+
+    const color = 'red'
 
     const backgroundStyle = StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: colors[color],
+        backgroundColor: color,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
