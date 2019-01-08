@@ -45,7 +45,8 @@ export default class StatementScreen extends React.Component {
   async componentDidMount() {
 
     try {
-      const { playerId, gameId } = await this.getAsyncStorageData()
+      const { playerId, color } = await this.getAsyncStorageData()
+      // data get gameId
       const role = await ApiRequester.getRole(gameId, playerId);
       const content = await ApiRequester.getContent(gameId, playerId);
       this.setState({ role: role, content: content });
