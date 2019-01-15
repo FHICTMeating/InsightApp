@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
-const BASE_PATH = "http://145.93.145.90:3000/";
+const BASE_PATH = "http://innovationsconnect.herokuapp.com/";
+// const BASE_PATH = "http://145.93.145.90:3000/";
 
 class ApiRequester {
 
