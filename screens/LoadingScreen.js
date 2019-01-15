@@ -51,7 +51,7 @@ export default class LoadingScreen extends React.Component {
     } catch(error) {
       return Promise.reject(error);
     }
-  
+
   }
 
   async componentDidMount() {
@@ -60,7 +60,6 @@ export default class LoadingScreen extends React.Component {
     if (userId) {
         //Check the session
         this.registerEndpoint.GetDetails(userId).then((result) => {
-            console.log(result);
             if(result.status == 204) {
                 this.props.navigation.navigate('App');
                 return;
@@ -82,13 +81,13 @@ export default class LoadingScreen extends React.Component {
       console.log('--TOKEN', token);
       this.registerEndpoint.Post({ pushToken: token }).then(async (result) => {
           let parsed = result.data;
-  
+
           try {
             await AsyncStorage.setItem('color', parsed.data.color);
             await AsyncStorage.setItem('userId', parsed.data._id);
             // console.log(parsed.data.color);
             this.props.navigation.navigate('App');
-  
+
           } catch (error) {
             // Error saving data
             console.log("Error", error);

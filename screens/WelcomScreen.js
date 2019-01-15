@@ -1,7 +1,6 @@
 import React from "react";
 import colors from "../config/colors";
 import {
-  ActivityIndicator,
   StyleSheet,
   AsyncStorage,
   Text,
@@ -9,7 +8,6 @@ import {
   Button
 } from "react-native";
 import { Notifications } from "expo";
-import { parse } from "qs";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -45,7 +43,6 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const { color } = this.state;
-    console.log(this.state);
 
     const backgroundStyle = StyleSheet.create({
       container: {
@@ -67,8 +64,6 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.paragraph}>
             Enjoy your day, you can close the app for now.
           </Text>
-
-          <Button title="Clear" onPress={() => AsyncStorage.clear()}></Button>
         </View>
       </View>
     );

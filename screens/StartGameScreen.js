@@ -1,4 +1,5 @@
 import React from "react";
+import { Ionicons } from '@expo/vector-icons';
 import colors from "../config/colors";
 
 import {
@@ -10,6 +11,7 @@ import {
   Image,
   Button
 } from "react-native";
+import { JoinGameEndpoint } from "../api/JoinGameEndpoint";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,6 +25,9 @@ export default class HomeScreen extends React.Component {
     };
 
     this.navigateBack = this.navigateBack.bind(this);
+    this.continue = this.continue.bind(this);
+
+    this.joinGameEndpoint = new JoinGameEndpoint();
   }
 
   componentDidMount() {
@@ -37,9 +42,18 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate("App");
   }
 
+  async continue() {
+    let userID = await AsyncStorage.getItem('userId');
+    this.joinGameEndpoint.Put(userID, {}).then((result) => {
+      
+      this.props.navigation.push('loading', { timestamp: result.data.data });
+    }).catch((error) => {
+      console.log('--ERROR', error);
+    });
+  }
+
   render() {
     const { color } = this.state;
-    console.log(this.state);
 
     const backgroundStyle = StyleSheet.create({
       container: {
@@ -64,7 +78,7 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.startGameButton} onPress={this.navigateBack}>
+          <TouchableOpacity style={styles.startGameButton} onPress={this.continue}>
             <Image
               style={styles.image}
               source={require("../assets/ic_arrow_forward.png")}
@@ -72,7 +86,6 @@ export default class HomeScreen extends React.Component {
           </TouchableOpacity>
 
           <Button
-            style={styles.stopButton}
             title="stop"
             onPress={this.navigateBack}
           />
@@ -111,10 +124,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 65,
     height: 65,
-    borderRadius: 100
-  },
-  stopButton: {
-    marginTop: 15
+    borderRadius: 100,
+    marginBottom: 30
   },
   image: {
     height: 40,
