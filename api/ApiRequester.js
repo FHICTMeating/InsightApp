@@ -77,7 +77,8 @@ class ApiRequester {
 				'Access-Control-Allow-Origin': '*'
 			}
 		});
-    }
+	}
+	
 }
 
 export default ApiRequester;

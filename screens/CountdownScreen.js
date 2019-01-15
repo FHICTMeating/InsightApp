@@ -22,7 +22,6 @@ export default class HomeScreen extends React.Component {
       countdownTime: "02:00",
       countdownProgress: 0
     };
-
     this.handleNotification = this.handleNotification.bind(this);
   }
 
@@ -43,9 +42,11 @@ export default class HomeScreen extends React.Component {
     const { data } = notification;
     if (data.Type === 'sequence game') {
         console.log("Received a squence game message");
-    //   this.props.navigation.navigate('Game');
+
+        AsyncStorage.setItem('gameId', notification.data.id);
+        this.props.navigation.navigate('game');
     }
-    console.log('--NOTIFICATION', notification);
+    console.log('--NOTIFICATION', notification.data.id);
   }
 
   countdownTime() {
@@ -108,9 +109,9 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={backgroundStyle.container}>
         <View style={backgroundStyle}>
-          <Progress.Circle style={styles.progress} size={250} progress={this.state.countdownProgress} color={"white"} direction={"counter-clockwise"}>
+          {/* <Progress.Circle style={styles.progress} size={250} progress={this.state.countdownProgress} color={"white"} direction={"counter-clockwise"}>
             <Text style={styles.title}>{this.state.countdownTime}</Text>
-          </Progress.Circle>
+          </Progress.Circle> */}
         </View>
       </View>
     );
